@@ -1,0 +1,7 @@
+{
+  "name": "cocktails_app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
