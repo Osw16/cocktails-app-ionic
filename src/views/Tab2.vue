@@ -2,27 +2,89 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 2</ion-title>
+        <ion-title>Search By Ingredient</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 2</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      
-      <ExploreContainer name="Tab 2 page" />
+    <ion-content v-if="state.loading">
+      <div class="loading-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>  
+      </ion-content>
+
+      <ion-content :fullscreen="true" v-if="state.lstIngredients.length > 0">
+        <ion-list>
+          <ion-item 
+            v-for="ingredient in state.lstInfredients"
+            :key="ingredient.strIngredient1"
+            @click="
+              ()=>
+              router.push(`/drinks-by-ingredient/${ingredient.strIngredient1}`)
+            "
+          >
+          <ion-avatar slot="start">
+            <img :src="ingredientImage(ingredient.strIngredient1)"/>
+          </ion-avatar>
+
+          <ion-label>
+            <h2>{{ingredient.strIngredient1}}</h2>
+          </ion-label>
+
+          </ion-item>
+        </ion-list>
+
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+import {reactive} from 'vue';
+import axios from 'axios';
+import {useRouter} from 'vue-router';
+
+interface Ingredient{
+  strIngredient1: string;
+}
+
 
 export default  {
   name: 'Tab2',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage 
+  },
+  setup(){
+    const router = useRouter();
+    const state = reactive({
+      lstIngredients:[] as Ingredient[],
+      loading:false
+    });
+
+    const fetchIngredients= async()=>{
+      state.loading = true;
+      const res = await axios.get(
+        "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+      );
+
+
+      if(res.data){
+        state.lstIngredients = res.data?.drinks;
+        state.lstIngredients.sort(function(a,b){
+          return a.strIngredient1.localeCompare(b.strIngredient1);
+        });
+      }
+      state.loading=false;
+    };
+    
+    const ingredientImage =(ingredient: string)=>{
+      return `https://www.thecocktaildb.com/images/ingredients/${encodeURI(ingredient)}-Small.png`;
+    };
+
+    fetchIngredients();
+    return{
+      router,
+      state,
+      ingredientImage,
+    }
+
+  }
 }
 </script>
