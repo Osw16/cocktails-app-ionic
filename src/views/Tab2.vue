@@ -5,16 +5,18 @@
         <ion-title>Search By Ingredient</ion-title>
       </ion-toolbar>
     </ion-header>
+
+
     <ion-content v-if="state.loading">
       <div class="loading-center">
         <ion-spinner color="primary"></ion-spinner>
       </div>  
       </ion-content>
 
-      <ion-content :fullscreen="true" v-if="state.lstIngredients.length > 0">
+      <ion-content :fullscreen="true" v-else>
         <ion-list>
           <ion-item 
-            v-for="ingredient in state.lstInfredients"
+            v-for="ingredient in state.lstIngredients"
             :key="ingredient.strIngredient1"
             @click="
               ()=>
@@ -28,8 +30,8 @@
           <ion-label>
             <h2>{{ingredient.strIngredient1}}</h2>
           </ion-label>
-
           </ion-item>
+          
         </ion-list>
 
     </ion-content>
@@ -37,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonAvatar, IonLabel, IonItem, IonList } from '@ionic/vue';
 import {reactive} from 'vue';
 import axios from 'axios';
 import {useRouter} from 'vue-router';
@@ -49,7 +51,7 @@ interface Ingredient{
 
 export default  {
   name: 'Tab2',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage 
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSpinner, IonAvatar, IonLabel, IonItem, IonList
   },
   setup(){
     const router = useRouter();
