@@ -43,10 +43,8 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonAv
 import {reactive} from 'vue';
 import axios from 'axios';
 import {useRouter} from 'vue-router';
+import IIngredient from '../interfaces/IIngredient'
 
-interface Ingredient{
-  strIngredient1: string;
-}
 
 
 export default  {
@@ -56,7 +54,7 @@ export default  {
   setup(){
     const router = useRouter();
     const state = reactive({
-      lstIngredients:[] as Ingredient[],
+      lstIngredients:[] as IIngredient[],
       loading:false
     });
 

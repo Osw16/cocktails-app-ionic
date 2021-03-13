@@ -26,6 +26,8 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,IonSpinner,IonRefresher, IonRefresherContent,
  } from '@ionic/vue';
 import DrinkCard from '@/components/DrinkCard.vue';
+import IDrinkDetails from'../interfaces/IDrinkDetails'
+
 //import reactivity from vue
 import{reactive} from 'vue';
 //import Axios
@@ -38,7 +40,7 @@ export default  {
   setup(){
     
     const state = reactive({
-     randomCocktail:{},
+     randomCocktail:{} as IDrinkDetails,
      loading:false, 
     });
     
