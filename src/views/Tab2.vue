@@ -40,7 +40,8 @@
 
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonAvatar, IonLabel, IonItem, IonList } from '@ionic/vue';
-import {reactive} from 'vue';
+import { reactive } from 'vue'
+
 import axios from 'axios';
 import {useRouter} from 'vue-router';
 import IIngredient from '../interfaces/IIngredient'

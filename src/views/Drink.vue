@@ -22,7 +22,9 @@
 
 <script lang="ts">
 import {IonPage,IonHeader,IonToolbar,IonTitle,IonContent,IonButtons,IonBackButton,IonSpinner} from "@ionic/vue";
-import {reactive} from 'vue';
+// import {reactive} from 'vue';
+import { reactive } from 'vue'
+
 import{useRoute} from 'vue-router';
 import axios from 'axios';
 import DrinkCard from '@/components/DrinkCard.vue'
